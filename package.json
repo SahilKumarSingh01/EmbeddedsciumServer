@@ -1,0 +1,22 @@
+{
+  "name": "embeddedsciumserver",
+  "version": "1.0.0",
+  "description": "A lightweight WebSocket-based system where an ESP32 acts as a minimal client and offloads all heavy tasks to a Node.js server deployed on Render. The ESP32 only maintains a persistent connection and forwards simple requests, while the server handles computation, API calls, and responses.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SahilKumarSingh01/EmbeddedsciumServer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SahilKumarSingh01/EmbeddedsciumServer/issues"
+  },
+  "homepage": "https://github.com/SahilKumarSingh01/EmbeddedsciumServer#readme",
+  "dependencies": {
+    "ws": "^8.18.3"
+  }
+}
