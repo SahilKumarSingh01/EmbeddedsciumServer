@@ -40,15 +40,22 @@ wss.on('connection', (clientWs, req) => {
     clientWs.send(JSON.stringify({ message: `Connected to upstream` }));
   });
 
-  // Client → Upstream
-  clientWs.on('message', (msg) => {
-    if (upstream.readyState === WebSocket.OPEN) upstream.send(msg);
-  });
+ // Client → Upstream
+clientWs.on('message', (msg) => {
+  console.log(`[Proxy] Client → Upstream: ${msg.toString().slice(0, 200)}${msg.length > 200 ? '...' : ''}`);
+  if (upstream.readyState === WebSocket.OPEN) {
+    upstream.send(msg);
+  }
+});
 
-  // Upstream → Client
-  upstream.on('message', (msg) => {
-    if (clientWs.readyState === WebSocket.OPEN) clientWs.send(msg);
-  });
+// Upstream → Client
+upstream.on('message', (msg) => {
+  console.log(`[Proxy] Upstream → Client: ${msg.toString().slice(0, 200)}${msg.length > 200 ? '...' : ''}`);
+  if (clientWs.readyState === WebSocket.OPEN) {
+    clientWs.send(msg);
+  }
+});
+
 
   // Handle disconnects
   clientWs.on('close', () => upstream.close());
