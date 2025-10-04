@@ -67,6 +67,10 @@ upstream.on('close', (code, reason) => {
   clientWs.close(code, reason.toString());
 });
 
+  clientWs.on('error', (err) => {
+    console.error('[Proxy] Client error:', err.message);
+    upstream.close(1011, 'Client connection failed');
+});
 
   upstream.on('error', (err) => {
     console.error('[Proxy] Upstream error:', err.message);
