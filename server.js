@@ -57,9 +57,16 @@ upstream.on('message', (msg) => {
 });
 
 
-  // Handle disconnects
-  clientWs.on('close', () => upstream.close());
-  upstream.on('close', () => clientWs.close());
+clientWs.on('close', (code, reason) => {
+  console.log("[Proxy] Client closed:", code, reason.toString());
+  upstream.close(code, reason.toString());
+});
+
+upstream.on('close', (code, reason) => {
+  console.log("[Proxy] Upstream closed:", code, reason.toString());
+  clientWs.close(code, reason.toString());
+});
+
 
   upstream.on('error', (err) => {
     console.error('[Proxy] Upstream error:', err.message);
