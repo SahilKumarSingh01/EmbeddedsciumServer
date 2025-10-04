@@ -19,7 +19,8 @@ wss.on('connection', (clientWs, req) => {
     console.log('[Proxy] Missing Authorization header');
     return;
   }
-
+  console.log(`[Proxy] trying to connect upstream: ${upstreamUrl} ✅`);
+  console.log(`[Proxy] trying with authheader : ${authHeader} ✅`);
   const upstream = new WebSocket(upstreamUrl, { headers: { Authorization: authHeader } });
 
   upstream.on('open', () => {
